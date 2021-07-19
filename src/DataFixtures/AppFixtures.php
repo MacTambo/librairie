@@ -19,6 +19,7 @@ class AppFixtures extends Fixture
                $books[$i]->setTitle($faker->sentence($nbWords = 6, $variableNbWords = true));
                $books[$i]->setPrice($faker->numberBetween($min = 1, $max = 50));
                $books[$i]->setAuthor($faker->name." ".$faker->lastName);
+               $books[$i]->setPicture("https://boxshot.com/support/3d-book-covers/how-to-make-a-3d-book-cover-in-photoshop/sample.jpg");
 
                $manager->persist($books[$i]);
            }

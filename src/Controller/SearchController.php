@@ -30,7 +30,7 @@ class SearchController extends AbstractController
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Entrez un mot-clé'
+                    'placeholder' => 'Entrez un mot clé'
                 ]
             ])
             ->add('recherche', SubmitType::class, [
@@ -39,7 +39,7 @@ class SearchController extends AbstractController
                 ]
             ])
             ->getForm();
-        return $this->render('search/index.html.twig', [
+        return $this->render('search/searchBar.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -47,15 +47,17 @@ class SearchController extends AbstractController
     /**
      * @Route("/handleSearch", name="handleSearch")
      * @param Request $request
+     * @param BookRepository $repo
+     * @return Response
      */
     public function handleSearch(Request $request, BookRepository $repo)
     {
         $query = $request->request->get('form')['query'];
         if($query) {
-            $articles = $repo->findBookByName($query);
+            $books = $repo->findBookByName($query);
         }
         return $this->render('search/index.html.twig', [
-            'articles' => $articles
+            'books' => $books
         ]);
     }
 }

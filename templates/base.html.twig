@@ -48,10 +48,9 @@
             </ul>
         </div>
             <div class="ml-auto d-flex">
-                <form class="form-inline my-2 my-lg-0 d-flex">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                {{ render(controller(
+                    'App\\Controller\\SearchController::searchBar'
+                )) }}
                 <ul class="navbar-nav mr-auto">
 
                     <li class="nav-item">
@@ -63,6 +62,8 @@
                 </ul>
             </div>
     </nav>
-        {% block body %}{% endblock %}
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>

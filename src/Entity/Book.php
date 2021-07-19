@@ -32,6 +32,11 @@ class Book
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +59,20 @@ class Book
         return $this->author;
     }
 
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    /**Setters*/
+
+    public function setPicture(string $picture): Book
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
     public function setAuthor(string $author): self
     {
         $this->author = $author;
@@ -73,24 +92,5 @@ class Book
         return $this;
     }
 
-    // Find/search articles by title/content
-    public function findBookByName(string $query)
-    {
-        $qb = $this->createQueryBuilder('p');
-        $qb
-            ->where(
-                $qb->expr()->andX(
-                    $qb->expr()->orX(
-                        $qb->expr()->like('p.title', ':query'),
-                        $qb->expr()->like('p.content', ':query'),
-                    ),
-                    $qb->expr()->isNotNull('p.created_at')
-                )
-            )
-            ->setParameter('query', '%' . $query . '%')
-        ;
-        return $qb
-            ->getQuery()
-            ->getResult();
-    }
+
 }
