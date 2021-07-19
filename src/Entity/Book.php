@@ -72,4 +72,25 @@ class Book
 
         return $this;
     }
+
+    // Find/search articles by title/content
+    public function findBookByName(string $query)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('p.title', ':query'),
+                        $qb->expr()->like('p.content', ':query'),
+                    ),
+                    $qb->expr()->isNotNull('p.created_at')
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 }
